@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
             String forecastUrl = getActivity().getResources().getString(R.string.weather_url);
 
-              new ServerAsynchTask(){
+              new ServerAsyncTask(){
                   @Override
                   protected void onPostExecute(Object o) {
                       weatherForecastJSON = (String) o;
