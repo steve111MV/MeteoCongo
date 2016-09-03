@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by STEVEN on 03/09/2016.
  */
-public class ServerAsynchTask extends AsyncTask {
+public class ServerAsyncTask extends AsyncTask {
 
     //For a best use of the device memory and the accecibility of the variables,
     // i encapsulated them and declared global
