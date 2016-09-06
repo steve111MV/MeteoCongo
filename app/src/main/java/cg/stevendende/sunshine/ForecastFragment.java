@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * Created by STEVEN on 03/09/2016.
@@ -18,8 +20,10 @@ import android.view.ViewGroup;
 
 public class ForecastFragment extends Fragment {
 
-    String weatherForecastJSON;
+    ArrayAdapter<String> adapter;
     String userTownName;
+
+    ListView weatherList;
 
     public ForecastFragment() {
     }
@@ -34,14 +38,14 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView  = inflater.inflate(R.layout.fragment_forecast, container, false);
+             weatherList = (ListView) rootView.findViewById(R.id.list_view_forecast);
 
         userTownName = "Brazzaville";
 
         new ServerAsyncTask(){
             @Override
-            protected void onPostExecute(String s) {
-                weatherForecastJSON = s;
-                Log.e("forecast_JSON", weatherForecastJSON);
+            protected void onPostExecute(String[] forecastArray) {
+                updateList(forecastArray);
             }
         }.execute(userTownName);
 
@@ -62,9 +66,8 @@ public class ForecastFragment extends Fragment {
 
                 new ServerAsyncTask(){
                     @Override
-                    protected void onPostExecute(String s) {
-                        weatherForecastJSON = s;
-                        Log.e("forecast_JSON", weatherForecastJSON);
+                    protected void onPostExecute(String[] forecastArray) {
+                        updateList(forecastArray);
                     }
                 }.execute(userTownName);
                 break;
@@ -72,5 +75,17 @@ public class ForecastFragment extends Fragment {
 
         }
         return true;
+    }
+
+    private void updateList(String[] forecastArray){
+
+        if (forecastArray==null)
+            return;
+
+        adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                forecastArray);
+        weatherList.setAdapter(adapter);
     }
 }
