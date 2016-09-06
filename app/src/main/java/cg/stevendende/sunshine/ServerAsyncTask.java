@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +13,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import cg.stevendende.sunshine.tools.WeatherDataParser;
+
 /**
  * Created by STEVEN on 03/09/2016.
  */
-public class ServerAsyncTask extends AsyncTask<String, Void, String> {
+public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
 
-    //For a best use of the device memory and the accecibility of the variables,
-    // i encapsulated them and declared global
     private String townId;
     private static HttpURLConnection urlCon;
     private static BufferedReader bufferReader;
@@ -32,7 +34,7 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String> {
     final String PARAM_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast/daily";
 
     @Override
-    protected String doInBackground(String... param) {
+    protected String[] doInBackground(String... param) {
 
         if (param.length==0)
             return null;
@@ -57,8 +59,6 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String> {
 
             Log.e("foracast uri", builder.toString());
 
-
-            //Retrieving the API connexion URL from tthe resources
             URL httpUrl = new URL(builder.toString());
 
             //Creating the connextion to the API
@@ -104,7 +104,13 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String> {
 
         }
 
-        return weatherForecastJSON;
+        WeatherDataParser parser = new WeatherDataParser();
+        try {
+            return parser.getWeatherDataFromJson(weatherForecastJSON, userNumDays);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 }
