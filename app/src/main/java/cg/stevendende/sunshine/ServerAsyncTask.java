@@ -1,5 +1,6 @@
 package cg.stevendende.sunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -9,35 +10,56 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Objects;
 
 /**
  * Created by STEVEN on 03/09/2016.
  */
-public class ServerAsyncTask extends AsyncTask {
+public class ServerAsyncTask extends AsyncTask<String, Void, String> {
 
     //For a best use of the device memory and the accecibility of the variables,
     // i encapsulated them and declared global
-    private String url;
+    private String townId;
     private static HttpURLConnection urlCon;
     private static BufferedReader bufferReader;
+    private String weatherForecastJSON;
 
-
+    final String PARAM_QUERY = "q";
+    final String PARAM_UNITS = "units";
+    final String PARAM_MODE = "mode";
+    final String PARAM_DAYS = "cnt";
+    final String PARAM_API_KEY = "appid";
+    final String PARAM_APP_KEY = "e62fde5506ccb962cedcdb21a4a08c63";
+    final String PARAM_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast/daily";
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected String doInBackground(String... param) {
 
+        if (param.length==0)
+            return null;
 
-        String forecastUrl = (String) objects[0];
-        String weatherForecastJSON ="";
+        townId = param[0];
 
+        String userUnits = "metric";
+        String userMode = "json";
+        int userNumDays = 7;
 
-        this.url = forecastUrl;
 
         try {
 
+            Uri builder = Uri.parse(PARAM_FORECAST_URL)
+                    .buildUpon()
+                    .appendQueryParameter(PARAM_QUERY,townId)
+                    .appendQueryParameter(PARAM_MODE, userMode)
+                    .appendQueryParameter(PARAM_UNITS,userUnits)
+                    .appendQueryParameter(PARAM_DAYS, userNumDays+"")
+                    .appendQueryParameter(PARAM_API_KEY, PARAM_APP_KEY)
+                    .build();
+
+            Log.e("foracast uri", builder.toString());
+
+
             //Retrieving the API connexion URL from tthe resources
-            URL httpUrl = new URL(url);
+            URL httpUrl = new URL(builder.toString());
 
             //Creating the connextion to the API
             urlCon = (HttpURLConnection) httpUrl.openConnection();
@@ -62,7 +84,7 @@ public class ServerAsyncTask extends AsyncTask {
                 return null;
 
             weatherForecastJSON = stringBuffer.toString();
-            Log.e("my data___", weatherForecastJSON);
+            Log.e("forecast_json a", weatherForecastJSON);
 
         } catch (IOException e) {
             e.printStackTrace();
