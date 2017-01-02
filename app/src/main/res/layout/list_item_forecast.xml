@@ -5,4 +5,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/forecast_item_padding"
+        android:textColor="@color/forecast_item_color"
     />

@@ -9,7 +9,10 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by STEVEN on 06/09/2016.
+ * Created by @steve111MV on 06/09/2016.
+ *
+ * The content of this parser is originaly from Github & tailored to my needs
+ * https://gist.github.com/udacityandroid/4ee49df1694da9129af9
  */
 public class WeatherDataParser {
 
