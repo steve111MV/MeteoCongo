@@ -2,7 +2,6 @@ package cg.stevendende.sunshine;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 
@@ -57,8 +56,6 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
                     .appendQueryParameter(PARAM_API_KEY, PARAM_APP_KEY)
                     .build();
 
-            Log.e("foracast uri", builder.toString());
-
             URL httpUrl = new URL(builder.toString());
 
             //Creating the connextion to the API
@@ -84,7 +81,6 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
                 return null;
 
             weatherForecastJSON = stringBuffer.toString();
-            Log.e("forecast_json a", weatherForecastJSON);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,10 +103,13 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
         WeatherDataParser parser = new WeatherDataParser();
         try {
             return parser.getWeatherDataFromJson(weatherForecastJSON, userNumDays);
-        } catch (JSONException e) {
+        }
+        catch (NullPointerException nullEx){
+            nullEx.printStackTrace();
+        }catch (JSONException e) {
             e.printStackTrace();
-            return null;
         }
 
+        return null;
     }
 }
