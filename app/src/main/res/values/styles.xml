@@ -6,11 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- as i want to work with a dark by default so that i learn to manually customize my layouts to Light colors
+        this tip is from http://stackoverflow.com/questions/31155212/changing-menu-background-of-toolbar-with-material-design
+        -->
+        <item name="android:popupBackground">@color/white_bg</item>
     </style>
 
 
     <style name="AppTheme.Light" parent="AppTheme">
         <item name="android:textColor">@color/forecast_item_color</item>
+        <item name="android:windowBackground">@color/white_bg</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
