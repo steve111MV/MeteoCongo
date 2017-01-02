@@ -2,5 +2,6 @@
     <string name="app_name">Sunshine</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="weather_url">http://api.openweathermap.org/data/2.5/forecast/daily?q=Brazzaville&amp;mode=json&amp;units=metric&amp;appid=e62fde5506ccb962cedcdb21a4a08c63</string>
+    <string name="weather_api_key">e62fde5506ccb962cedcdb21a4a08c63</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
