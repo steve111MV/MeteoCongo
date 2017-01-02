@@ -11,8 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by STEVEN on 03/09/2016.
@@ -31,6 +34,8 @@ public class ForecastFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //inflate fragment menu in Activity
         setHasOptionsMenu(true);
     }
 
@@ -86,6 +91,14 @@ public class ForecastFragment extends Fragment {
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 forecastArray);
+
         weatherList.setAdapter(adapter);
+
+        weatherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), ((TextView)view).getText(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
