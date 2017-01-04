@@ -1,10 +1,10 @@
 package cg.stevendende.sunshine;
 
-import android.net.Uri;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * Created by STEVEN on 03/09/2016.
@@ -23,11 +24,11 @@ import android.widget.Toast;
 
 public class ForecastFragment extends Fragment {
 
-    ArrayAdapter<String> adapter;
-    String userTownName;
+    private ArrayAdapter<String> adapter;
 
-    ListView weatherList;
+    private ListView weatherList;
 
+    public static String EXTRA_WEATHER_FORECAST = "cg.stevendende.sunshine.extra.weather";
     public ForecastFragment() {
     }
 
@@ -43,16 +44,24 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView  = inflater.inflate(R.layout.fragment_forecast, container, false);
-             weatherList = (ListView) rootView.findViewById(R.id.list_view_forecast);
 
-        userTownName = "Brazzaville";
+        weatherList = (ListView) rootView.findViewById(R.id.list_view_forecast);
 
-        new ServerAsyncTask(){
+        adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                new ArrayList<String>());
+
+        weatherList.setAdapter(adapter);
+
+        weatherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            protected void onPostExecute(String[] forecastArray) {
-                updateList(forecastArray);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra(EXTRA_WEATHER_FORECAST, ((TextView)view).getText());
+                startActivity(intent);
             }
-        }.execute(userTownName);
+        });
 
         return rootView;
     }
@@ -68,18 +77,26 @@ public class ForecastFragment extends Fragment {
 
         switch (item.getItemId()){
             case R.id.action_refresh:
-
-                new ServerAsyncTask(){
-                    @Override
-                    protected void onPostExecute(String[] forecastArray) {
-                        updateList(forecastArray);
-                    }
-                }.execute(userTownName);
+                updateWeather();
                 break;
+
             default:
+                break;
 
         }
         return true;
+    }
+
+    private void updateWeather(){
+        String location = SettingsActivity.getUserLocation(getActivity());
+        String units = SettingsActivity.getPreferedUnits(getActivity());
+
+        new ServerAsyncTask(){
+            @Override
+            protected void onPostExecute(String[] forecastArray) {
+                updateList(forecastArray);
+            }
+        }.execute(location, units);
     }
 
     private void updateList(String[] forecastArray){
@@ -87,18 +104,24 @@ public class ForecastFragment extends Fragment {
         if (forecastArray==null)
             return;
 
-        adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                forecastArray);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            adapter.addAll(forecastArray);
+        else
+        {
+            adapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    forecastArray);
+            weatherList.setAdapter(adapter);
+        }
 
-        weatherList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
-        weatherList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), ((TextView)view).getText(),Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        updateWeather();
     }
 }

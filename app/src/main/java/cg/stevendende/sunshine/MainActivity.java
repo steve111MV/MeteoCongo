@@ -1,8 +1,9 @@
 package cg.stevendende.sunshine;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -50,14 +51,33 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //We call the settings activity
         if (id == R.id.action_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        else if (id == R.id.action_prefered_location) {
+            showPreferedLocationOnMap();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void showPreferedLocationOnMap(){
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+
+        //Get location in SharedPreferences
+        String locationName = SettingsActivity.getUserLocation(this);
+
+        //More about MAP queries here https://developers.google.com/maps/documentation/android-api/intents
+        Uri geoUri = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q",locationName).build();
+        mapIntent.setData(geoUri);
+
+        if(mapIntent.resolveActivity(getPackageManager()) != null){
+            startActivity(mapIntent);
+        }
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {

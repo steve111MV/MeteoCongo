@@ -4,4 +4,22 @@
     <string name="action_settings">Settings</string>
     <string name="weather_api_key">e62fde5506ccb962cedcdb21a4a08c63</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="pref_location_title">Location</string>
+    <string name="pref_location_key" translatable="false">pref.location</string>
+    <string name="pref_location_defaultvalue" translatable="false">brazzaville</string>
+    <string name="pref_units_title">Temperature Units</string>
+    <string name="pref_units_key" translatable="false">pref.units</string>
+    <string name="pref_units_metric" translatable="false">metric</string>
+    <string name="action_prefered_location">Prefered location on Map</string>
+
+    <array name="pref_units_options">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </array>
+    <array name="pref_units_values">
+        <item>metric</item>
+        <item>imperial</item>
+    </array>
 </resources>

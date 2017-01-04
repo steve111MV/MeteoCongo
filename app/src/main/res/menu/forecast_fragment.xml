@@ -5,5 +5,7 @@
         android:id="@+id/action_refresh"
         android:title="refresh"
         android:showAsAction="never"
-        tools:ignore="AppCompatResource" />
+        tools:ignore="AppCompatResource"
+        android:orderInCategory="1"
+        />
 </menu>

@@ -2,6 +2,7 @@ package cg.stevendende.sunshine;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -19,7 +20,6 @@ import cg.stevendende.sunshine.tools.WeatherDataParser;
  */
 public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
 
-    private String townId;
     private static HttpURLConnection urlCon;
     private static BufferedReader bufferReader;
     private String weatherForecastJSON;
@@ -38,9 +38,11 @@ public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
         if (param.length==0)
             return null;
 
-        townId = param[0];
+        String townId = param[0];
+        String userUnits = param[1];
 
-        String userUnits = "metric";
+        Log.i("town id/name ___", townId);
+
         String userMode = "json";
         int userNumDays = 7;
 
