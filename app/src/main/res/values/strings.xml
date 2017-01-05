@@ -13,6 +13,9 @@
     <string name="pref_units_key" translatable="false">pref.units</string>
     <string name="pref_units_metric" translatable="false">metric</string>
     <string name="action_prefered_location">Prefered location on Map</string>
+    <string name="action_share">Share</string>
+    <string name="sunshine_hashtag"> #SunshineApp</string>
+    <string name="action_send_email">send</string>
 
     <array name="pref_units_options">
         <item>Metric</item>

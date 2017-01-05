@@ -104,8 +104,10 @@ public class ForecastFragment extends Fragment {
         if (forecastArray==null)
             return;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            adapter.clear();
             adapter.addAll(forecastArray);
+        }
         else
         {
             adapter = new ArrayAdapter<String>(

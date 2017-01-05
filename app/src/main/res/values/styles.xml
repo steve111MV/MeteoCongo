@@ -17,12 +17,12 @@
 
 
 
-    <style name="AppTheme.Light" parent="AppTheme">
+    <!--style name="AppTheme.Light" parent="AppTheme">
         <item name="android:textColor">@color/forecast_item_color</item>
         <item name="android:windowBackground">@color/white_bg</item>
     </style>
-
-    <style name="AppTheme.Preference" parent="AppTheme.AppBarOverlay"/>
+-->
+    <style name="AppTheme.Preference" parent="Theme.AppCompat.CompactMenu"/>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
