@@ -4,6 +4,9 @@
         android:id="@+id/list_item_forecast_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/forecast_item_padding"
+        android:paddingTop="@dimen/forecast_item_padding"
+        android:paddingBottom="@dimen/forecast_item_padding"
+        android:paddingLeft="@dimen/forecast_item_padding_left_right"
+        android:paddingRight="@dimen/forecast_item_padding_left_right"
         android:textColor="@color/forecast_item_color"
     />
