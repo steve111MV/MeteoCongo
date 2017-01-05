@@ -1,0 +1,4 @@
+<resources>
+    <style name="AppTheme.Preferences" parent="Theme.AppCompat.CompactMenu"/>
+    <style name="AppTheme.Preference" parent="Theme.AppCompat.CompactMenu"/>
+</resources>

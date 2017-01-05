@@ -18,10 +18,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by STEVEN on 03/09/2016.
- */
-
 public class ForecastFragment extends Fragment {
 
     private ArrayAdapter<String> adapter;

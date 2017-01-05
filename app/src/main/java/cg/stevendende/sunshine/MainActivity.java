@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
         if (savedInstanceState == null) {

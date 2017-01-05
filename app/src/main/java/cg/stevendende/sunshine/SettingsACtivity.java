@@ -1,9 +1,5 @@
 package cg.stevendende.sunshine;
 
-/**
- * Created by STEVEN on 02/01/2017.
- */
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -25,12 +21,9 @@ import android.preference.PreferenceManager;
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-    private static final String PREFERENCE_LOCATION = "cg.stevendende.sunshine.pref.location";
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
 
             // Add 'general' preferences, defined in the XML file
             addPreferencesFromResource(R.xml.preference_screen);

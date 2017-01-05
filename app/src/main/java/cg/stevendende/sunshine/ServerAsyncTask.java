@@ -15,9 +15,6 @@ import java.net.URL;
 
 import cg.stevendende.sunshine.tools.WeatherDataParser;
 
-/**
- * Created by STEVEN on 03/09/2016.
- */
 public class ServerAsyncTask extends AsyncTask<String, Void, String[]> {
 
     private static HttpURLConnection urlCon;
